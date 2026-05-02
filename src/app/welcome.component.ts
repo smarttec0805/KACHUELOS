@@ -23,7 +23,7 @@ import { RouterLink } from '@angular/router';
       
       <!-- Image Layer -->
       <div class="absolute top-16 left-0 w-full h-[55%] flex justify-center items-end z-10 pointer-events-none drop-shadow-2xl">
-        <img alt="3D character of a young worker holding tools" class="h-full object-contain object-bottom max-h-[500px]" src="https://lh3.googleusercontent.com/aida/ADBb0ugtRxZBGgvDzUWjIZ5otcaljEIERcEAGBlXLQ-NYBcFq2LXGl7kClB3FmYpV0EA9kXW5PanUHfhwSr-GzmDueoIbBmqisDZCAUZw1MTE3_MuDGnhzZYoQMVl6bG4Ee4xJp8WJ8SQB34w-e8W_aORuzPvWOERO2wPwWC596dNPsqj8OPw3z4DRn0FZQ1Hk3LjcCVDBBXZVBe5AyL1dM4w_qYU0AzAA1b9Mftl00OqpOLJJ7GyToRhm8TYScNfeyLUu69xkRjXh8" />
+        <img alt="3D character of a young worker holding tools" class="h-full object-contain object-bottom max-h-[500px]" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" />
       </div>
 
       <!-- Main Content Container -->
@@ -50,4 +50,4 @@ import { RouterLink } from '@angular/router';
     </div>
   `
 })
-export class WelcomeComponent {}
+export class WelcomeComponent { }
