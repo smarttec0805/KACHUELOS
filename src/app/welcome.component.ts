@@ -23,7 +23,7 @@ import { RouterLink } from '@angular/router';
       
       <!-- Image Layer -->
       <div class="absolute top-16 left-0 w-full h-[55%] flex justify-center items-end z-10 pointer-events-none drop-shadow-2xl">
-        <img alt="3D character of a young worker holding tools" class="h-full object-contain object-bottom max-h-[500px]" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" />
+        <img alt="3D character of a young worker holding tools" class="h-full object-contain object-bottom max-h-[500px]" src="assets/images/trabajador.png" />
       </div>
 
       <!-- Main Content Container -->
