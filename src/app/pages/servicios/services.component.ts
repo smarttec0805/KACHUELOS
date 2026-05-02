@@ -200,7 +200,6 @@ interface Categoria {
                   <span class="material-symbols-outlined text-sm mr-1" style="vertical-align:middle">add_circle</span>
                   Agregar oficio
                 </button>
-                <!-- Oficios personalizados agregados -->
                 @if (oficiosPersonalizados().length > 0) {
                   <div class="flex flex-wrap gap-2 pt-1">
                     @for (op of oficiosPersonalizados(); track op) {
@@ -243,10 +242,8 @@ interface Categoria {
   `
 })
 export class ServicesComponent {
-  // Búsqueda
   busqueda = '';
 
-  // Filtros
   filtros = [
     { valor: 'todos', etiqueta: 'Todos' },
     { valor: 'populares', etiqueta: 'Más populares' },
@@ -254,18 +251,14 @@ export class ServicesComponent {
   ];
   filtroActivo = signal('todos');
 
-  // Acordeón — id de la categoría abierta (null = todas cerradas)
   categoriaAbierta = signal<string | null>('construccion');
 
-  // Oficios seleccionados
   seleccionados = signal<string[]>([]);
 
-  // Otro oficio
   mostrarOtroOficio = signal(false);
   otroOficioTexto   = '';
   oficiosPersonalizados = signal<string[]>([]);
 
-  // Catálogo completo
   categorias: Categoria[] = [
     {
       id: 'construccion',
@@ -356,7 +349,6 @@ export class ServicesComponent {
     },
   ];
 
-  // Todos los oficios planos para búsqueda
   todosLosOficios = computed(() =>
     this.categorias.flatMap(c => c.oficios)
   );
@@ -369,14 +361,12 @@ export class ServicesComponent {
     );
   });
 
-  // Toggle acordeón
   toggleCategoria(id: string) {
     this.categoriaAbierta.set(
       this.categoriaAbierta() === id ? null : id
     );
   }
 
-  // Toggle selección de oficio
   toggleOficio(id: string) {
     const actual = this.seleccionados();
     if (actual.includes(id)) {
@@ -394,7 +384,6 @@ export class ServicesComponent {
     return cat.oficios.filter(o => this.estaSeleccionado(o.id)).length;
   }
 
-  // Agregar oficio personalizado
   agregarOtroOficio() {
     const texto = this.otroOficioTexto.trim();
     if (!texto) return;

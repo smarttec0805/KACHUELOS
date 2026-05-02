@@ -15,19 +15,19 @@ import { RouterLink } from '@angular/router';
               <span class="material-symbols-outlined text-2xl">arrow_back</span>
             </a>
             <h1 class="font-headline font-semibold text-xs tracking-tight text-on-surface-variant flex-1 text-center">Paso 1 de 4</h1>
-            <div class="w-10"></div> 
+            <div class="w-10"></div>
           </div>
           <div class="w-full flex h-1 bg-surface-container-high">
             <div class="w-1/4 bg-[#0F6E56] h-full rounded-r-full"></div>
           </div>
         </header>
-        
+
         <main class="flex-1 px-6 pt-8 pb-6 flex flex-col">
           <div class="space-y-3 mb-10">
             <h2 class="font-headline text-2xl font-bold text-on-surface tracking-tight">Ingresa tu número de celular</h2>
             <p class="font-body text-sm text-on-surface-variant leading-relaxed">Te enviaremos un código por SMS para verificar que eres tú. Es rápido y seguro.</p>
           </div>
-          
+
           <div class="space-y-2 mb-6">
             <label class="block font-label text-sm font-medium text-on-surface" for="phone">Número de celular</label>
             <div class="flex gap-3">
@@ -40,14 +40,14 @@ import { RouterLink } from '@angular/router';
               </div>
             </div>
           </div>
-          
+
           <div class="flex items-center gap-2 text-on-surface-variant mt-2">
             <span class="material-symbols-outlined text-[16px] text-outline">lock</span>
             <span class="font-body text-xs">No compartiremos tu número con nadie</span>
           </div>
           <div class="flex-1"></div>
         </main>
-        
+
         <footer class="px-6 pb-8 pt-4 w-full bg-surface-container-lowest mt-auto">
           <a routerLink="/code" class="w-full h-[52px] bg-[#D85A30] text-white font-headline font-bold text-base rounded-xl shadow-[0_4px_16px_rgba(216,90,48,0.2)] hover:shadow-[0_6px_20px_rgba(216,90,48,0.3)] transition-all active:scale-95 mb-6 flex items-center justify-center">
             Enviar código SMS

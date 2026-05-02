@@ -1,52 +1,58 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => import('./welcome.component').then(m => m.WelcomeComponent)
+        loadComponent: () => import('./pages/bienvenida/welcome.component').then(m => m.WelcomeComponent)
     },
     {
         path: 'phone',
-        loadComponent: () => import('./phone.component').then(m => m.PhoneComponent)
+        loadComponent: () => import('./pages/telefono/phone.component').then(m => m.PhoneComponent)
     },
     {
         path: 'code',
-        loadComponent: () => import('./code.component').then(m => m.CodeComponent)
+        loadComponent: () => import('./pages/codigo/code.component').then(m => m.CodeComponent)
     },
     {
         path: 'role',
-        loadComponent: () => import('./role.component').then(m => m.RoleComponent)
+        loadComponent: () => import('./pages/rol/role.component').then(m => m.RoleComponent)
     },
     {
         path: 'profile-info',
-        loadComponent: () => import('./profile-info.component').then(m => m.ProfileInfoComponent)
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/perfil-info/profile-info.component').then(m => m.ProfileInfoComponent)
     },
     {
         path: 'worker-type',
-        loadComponent: () => import('./worker-type.component').then(m => m.WorkerTypeComponent)
+        loadComponent: () => import('./pages/tipo-trabajador/worker-type.component').then(m => m.WorkerTypeComponent)
     },
     {
         path: 'services',
-        loadComponent: () => import('./services.component').then(m => m.ServicesComponent)
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/servicios/services.component').then(m => m.ServicesComponent)
     },
     {
         path: 'work-details',
-        loadComponent: () => import('./work-details.component').then(m => m.WorkDetailsComponent)
+        loadComponent: () => import('./pages/detalles-trabajo/work-details.component').then(m => m.WorkDetailsComponent)
     },
     {
         path: 'dashboard',
-        loadComponent: () => import('./dashboard.component').then(m => m.DashboardComponent)
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/panel-principal/dashboard.component').then(m => m.DashboardComponent)
     },
     {
         path: 'premium',
-        loadComponent: () => import('./premium.component').then(m => m.PremiumComponent)
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/premium/premium.component').then(m => m.PremiumComponent)
     },
     {
         path: 'private-profile',
-        loadComponent: () => import('./private-profile.component').then(m => m.PrivateProfileComponent)
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/perfil-privado/private-profile.component').then(m => m.PrivateProfileComponent)
     },
     {
         path: 'login',
-        loadComponent: () => import('./login.component').then(m => m.LoginComponent)
+        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
     }
 ];

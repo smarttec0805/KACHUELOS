@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
         <div class="absolute top-10 -right-20 w-64 h-64 bg-[#FF5722] rounded-full mix-blend-multiply filter blur-3xl opacity-60"></div>
         <div class="absolute bottom-10 -left-20 w-72 h-72 bg-primary-fixed rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
       </div>
-      
+
       <!-- Image Layer -->
       <div class="absolute top-16 left-0 w-full h-[55%] flex justify-center items-end z-10 pointer-events-none drop-shadow-2xl">
         <img alt="3D character of a young worker holding tools" class="h-full object-contain object-bottom max-h-[500px]" src="assets/images/trabajador.png" />
@@ -35,7 +35,7 @@ import { RouterLink } from '@angular/router';
               Activa tu talento y encuentra oportunidades o encuentra a alguien que te ayude con oficios, mudanzas y más. Ganar dinero nunca fue tan fácil.
             </p>
           </div>
-          
+
           <div class="flex flex-col gap-4 w-full">
             <a routerLink="/phone" class="group flex items-center justify-center w-full bg-[#FF5722] text-white font-label font-bold text-[1.125rem] py-4 px-6 rounded-full shadow-[0_8px_24px_rgba(255,87,34,0.5)] transition-all active:scale-[0.98] hover:bg-[#E64A19]">
               <span>Crear cuenta</span>

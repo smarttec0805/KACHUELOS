@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
           <span class="material-symbols-outlined text-2xl">settings</span>
         </button>
       </header>
-      
+
       <main class="max-w-2xl mx-auto px-4 mt-6 space-y-6">
         <section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col items-center text-center">
           <div class="relative mb-4">

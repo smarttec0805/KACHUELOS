@@ -136,35 +136,28 @@ export class CodeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Auto-focus al primer campo
     this.inputs.first?.nativeElement.focus();
   }
 
-  /** Cuando el usuario escribe un dígito, avanza al siguiente campo */
   onInput(event: Event, index: number) {
     const input = event.target as HTMLInputElement;
     const inputsArr = this.inputs.toArray();
 
-    // Solo acepta dígitos
     input.value = input.value.replace(/\D/g, '').slice(-1);
 
     if (input.value && index < inputsArr.length - 1) {
-      // Avanza al siguiente
       inputsArr[index + 1].nativeElement.focus();
     }
   }
 
-  /** Backspace: borra y retrocede al campo anterior */
   onKeyDown(event: KeyboardEvent, index: number) {
     const inputsArr = this.inputs.toArray();
     const input = event.target as HTMLInputElement;
 
     if (event.key === 'Backspace') {
       if (input.value) {
-        // Borra el valor actual
         input.value = '';
       } else if (index > 0) {
-        // Si ya está vacío, retrocede y borra el anterior
         const prev = inputsArr[index - 1].nativeElement;
         prev.value = '';
         prev.focus();
@@ -183,7 +176,6 @@ export class CodeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /** Pegar código completo (ej: desde SMS) */
   onPaste(event: ClipboardEvent) {
     event.preventDefault();
     const pasted = event.clipboardData?.getData('text') ?? '';
@@ -196,7 +188,6 @@ export class CodeComponent implements OnInit, AfterViewInit {
       }
     });
 
-    // Foco en el último campo llenado o en el siguiente vacío
     const focusIndex = Math.min(digits.length, inputsArr.length - 1);
     inputsArr[focusIndex].nativeElement.focus();
   }

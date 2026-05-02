@@ -81,7 +81,6 @@ type Cobertura = 'zona' | 'ciudad' | 'alrededores';
                   ? 'border-[#0F6E56]/40 bg-[#0F6E56]/5'
                   : 'border-outline-variant/20 hover:bg-surface-container-low'">
                 <div class="flex items-center gap-3">
-                  <!-- Radio circle -->
                   <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all"
                        [class]="precioTipo() === op.valor ? 'border-[#0F6E56] bg-[#0F6E56]' : 'border-outline-variant'">
                     @if (precioTipo() === op.valor) {
@@ -94,7 +93,6 @@ type Cobertura = 'zona' | 'ciudad' | 'alrededores';
                   </span>
                 </div>
 
-                <!-- Campo monto (solo si está seleccionado y tiene monto) -->
                 @if (precioTipo() === op.valor && op.conMonto) {
                   <div class="mt-3 ml-8 flex items-center gap-3">
                     <span class="text-[#0F6E56] font-medium">S/</span>
@@ -229,7 +227,6 @@ type Cobertura = 'zona' | 'ciudad' | 'alrededores';
 })
 export class WorkDetailsComponent {
 
-  // ① Experiencia
   opcionesExperiencia = [
     { valor: 'menos1', etiqueta: 'Menos de 1 año' },
     { valor: '1a3',    etiqueta: '1 a 3 años' },
@@ -239,7 +236,6 @@ export class WorkDetailsComponent {
   experiencia = signal('1a3');
   descripcion = '';
 
-  // ② Precio
   opcionesPrecio: { valor: PrecioTipo; etiqueta: string; conMonto: boolean; unidad?: string }[] = [
     { valor: 'hora',     etiqueta: 'Cobro por hora',    conMonto: true,  unidad: 'hora' },
     { valor: 'dia',      etiqueta: 'Cobro por día',     conMonto: true,  unidad: 'día' },
@@ -249,7 +245,6 @@ export class WorkDetailsComponent {
   precioTipo = signal<PrecioTipo>('hora');
   monto = 25;
 
-  // ③ Disponibilidad — días
   dias = [
     { id: 'L', letra: 'L' }, { id: 'M', letra: 'M' }, { id: 'X', letra: 'M' },
     { id: 'J', letra: 'J' }, { id: 'V', letra: 'V' }, { id: 'S', letra: 'S' },
@@ -272,7 +267,6 @@ export class WorkDetailsComponent {
   seleccionarTodosDias()  { this.diasSeleccionados.set(['L','M','X','J','V','S','D']); }
   seleccionarFinDeSemana(){ this.diasSeleccionados.set(['S','D']); }
 
-  // Turnos
   turnos = [
     { valor: 'manana' as Turno, nombre: 'Mañana',  icono: 'light_mode',        horario: '8:00 - 12:00' },
     { valor: 'tarde'  as Turno, nombre: 'Tarde',   icono: 'partly_cloudy_day', horario: '12:00 - 18:00' },
@@ -287,10 +281,8 @@ export class WorkDetailsComponent {
     );
   }
 
-  // Toggle disponible ahora
   disponibleAhora = signal(false);
 
-  // Cobertura
   opcionesCobertura = [
     { valor: 'zona'        as Cobertura, etiqueta: 'Solo mi zona' },
     { valor: 'ciudad'      as Cobertura, etiqueta: 'Toda la ciudad' },

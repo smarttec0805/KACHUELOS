@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '@angular/fire/auth';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -39,7 +41,7 @@ import { FormsModule } from '@angular/forms';
           <span class="text-primary-container font-medium text-sm">Agregar foto (opcional)</span>
         </div>
 
-        <form class="space-y-6">
+        <form class="space-y-6" (ngSubmit)="guardarPerfil()">
 
           <!-- Nombre -->
           <div>
@@ -47,6 +49,8 @@ import { FormsModule } from '@angular/forms';
             <input
               id="nombre"
               type="text"
+              name="nombre"
+              [(ngModel)]="nombre"
               placeholder="Ej: Juan Pérez Mamani"
               class="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 text-on-surface focus:ring-0 focus:border-b-2 focus:border-b-primary transition-all placeholder:text-outline-variant font-body outline-none"/>
           </div>
@@ -59,9 +63,9 @@ import { FormsModule } from '@angular/forms';
               type="number"
               min="17"
               max="99"
+              name="edad"
               placeholder="Ej: 22"
               [(ngModel)]="edad"
-              name="edad"
               (input)="validarEdad()"
               class="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 text-on-surface focus:ring-0 focus:border-b-2 transition-all placeholder:text-outline-variant font-body outline-none"
               [class]="edadInvalida() ? 'border-b-2 border-b-red-400 focus:border-b-red-400' : 'focus:border-b-primary'"/>
@@ -108,7 +112,6 @@ import { FormsModule } from '@angular/forms';
               <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
             </div>
 
-            <!-- Campo editable cuando elige "otra" -->
             @if (zonaSeleccionada === 'otra') {
               <div class="mt-3 relative">
                 <input
@@ -139,44 +142,103 @@ import { FormsModule } from '@angular/forms';
           </p>
         </div>
 
+        <!-- Error -->
+        @if (error()) {
+          <div class="mt-6 flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+            <span class="material-symbols-outlined text-red-500 text-[18px] flex-shrink-0">error</span>
+            <p class="font-body text-sm text-red-600">{{ error() }}</p>
+          </div>
+        }
+
         <!-- Botón crear cuenta -->
-        <div class="mt-10">
-          <a routerLink="/worker-type"
-             class="w-full bg-secondary-container text-white font-headline font-bold text-base py-4 rounded-xl shadow-[0_4px_16px_rgba(255,87,34,0.2)] hover:bg-opacity-90 active:scale-[0.98] transition-all flex justify-center items-center gap-2">
-            Crear mi cuenta
-            <span class="material-symbols-outlined">check_circle</span>
-          </a>
+        <div class="mt-6">
+          <button
+            type="button"
+            (click)="guardarPerfil()"
+            [disabled]="guardando()"
+            class="w-full bg-secondary-container text-white font-headline font-bold text-base py-4 rounded-xl shadow-[0_4px_16px_rgba(255,87,34,0.2)] hover:bg-opacity-90 active:scale-[0.98] transition-all flex justify-center items-center gap-2 disabled:opacity-60">
+            @if (guardando()) {
+              <span class="material-symbols-outlined animate-spin">progress_activity</span>
+              Guardando...
+            } @else {
+              Crear mi cuenta
+              <span class="material-symbols-outlined">check_circle</span>
+            }
+          </button>
         </div>
       </main>
     </div>
   `
 })
 export class ProfileInfoComponent {
-  // Edad
-  edad = signal<number | null>(null);
+  private auth   = inject(Auth);
+  private userService = inject(UserService);
+  private router = inject(Router);
+
+  nombre = '';
+  edad: number | null = null;
   edadInvalida = signal(false);
+  generoSeleccionado = signal('');
+  zonaSeleccionada = '';
+  zonaManual = '';
+  guardando = signal(false);
+  error = signal<string | null>(null);
+
+  generos = [
+    { valor: 'masculino', etiqueta: 'Masculino' },
+    { valor: 'femenino',  etiqueta: 'Femenino' },
+    { valor: 'no-decir',  etiqueta: 'Prefiero no decir' },
+  ];
 
   validarEdad() {
-    const val = this.edad();
-    this.edadInvalida.set(val !== null && val < 17);
+    this.edadInvalida.set(this.edad !== null && this.edad < 17);
   }
 
-  // Género
-  generos = [
-    { valor: 'masculino',  etiqueta: 'Masculino' },
-    { valor: 'femenino',   etiqueta: 'Femenino' },
-    { valor: 'no-decir',   etiqueta: 'Prefiero no decir' },
-  ];
-  generoSeleccionado = signal('');
-
   seleccionarGenero(valor: string) {
-    // Toca el mismo → deselecciona
     this.generoSeleccionado.set(
       this.generoSeleccionado() === valor ? '' : valor
     );
   }
 
-  // Zona
-  zonaSeleccionada = '';
-  zonaManual = '';
+  async guardarPerfil() {
+    this.error.set(null);
+
+    if (!this.nombre.trim()) {
+      this.error.set('El nombre completo es obligatorio.');
+      return;
+    }
+    if (this.edadInvalida()) {
+      this.error.set('Corrige la edad antes de continuar.');
+      return;
+    }
+    const zonaFinal = this.zonaSeleccionada === 'otra'
+      ? this.zonaManual.trim()
+      : this.zonaSeleccionada;
+    if (!zonaFinal) {
+      this.error.set('Selecciona o escribe tu zona.');
+      return;
+    }
+
+    const uid = this.auth.currentUser?.uid;
+    if (!uid) {
+      this.error.set('No hay sesión activa. Vuelve a iniciar sesión.');
+      return;
+    }
+
+    this.guardando.set(true);
+    try {
+      await this.userService.createProfile(uid, {
+        nombre: this.nombre.trim(),
+        edad:   this.edad ?? 0,
+        genero: this.generoSeleccionado(),
+        zona:   zonaFinal,
+        rol:    'trabajador',
+      });
+      this.router.navigate(['/worker-type']);
+    } catch {
+      this.error.set('Error al guardar el perfil. Intenta de nuevo.');
+    } finally {
+      this.guardando.set(false);
+    }
+  }
 }

@@ -52,7 +52,6 @@ type Role = 'offer' | 'need' | 'both';
               ? 'border-primary-container bg-primary-container/5'
               : 'border-outline-variant/30 bg-surface-container-lowest hover:bg-surface-container-low'">
 
-            <!-- Ícono -->
             <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all"
                  [class]="selectedRole() === 'offer'
                    ? 'bg-primary text-on-primary'
@@ -60,7 +59,6 @@ type Role = 'offer' | 'need' | 'both';
               <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handyman</span>
             </div>
 
-            <!-- Texto -->
             <div class="flex flex-col gap-1 flex-1 pr-6">
               <span class="font-headline font-semibold text-base text-on-surface">Quiero ofrecer mis servicios</span>
               <span class="font-body text-sm text-on-surface-variant leading-snug">
@@ -68,7 +66,6 @@ type Role = 'offer' | 'need' | 'both';
               </span>
             </div>
 
-            <!-- Radio indicator -->
             <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0"
                  [class]="selectedRole() === 'offer'
                    ? 'border-primary-container bg-primary-container'
@@ -88,7 +85,6 @@ type Role = 'offer' | 'need' | 'both';
               ? 'border-secondary-container bg-secondary-container/5'
               : 'border-outline-variant/30 bg-surface-container-lowest hover:bg-surface-container-low'">
 
-            <!-- Ícono -->
             <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all"
                  [class]="selectedRole() === 'need'
                    ? 'bg-secondary-container text-on-secondary'
@@ -96,7 +92,6 @@ type Role = 'offer' | 'need' | 'both';
               <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">front_hand</span>
             </div>
 
-            <!-- Texto -->
             <div class="flex flex-col gap-1 flex-1 pr-6">
               <span class="font-headline font-semibold text-base text-on-surface">Necesito que me ayuden</span>
               <span class="font-body text-sm text-on-surface-variant leading-snug">
@@ -104,7 +99,6 @@ type Role = 'offer' | 'need' | 'both';
               </span>
             </div>
 
-            <!-- Radio indicator -->
             <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0"
                  [class]="selectedRole() === 'need'
                    ? 'border-secondary-container bg-secondary-container'
@@ -124,12 +118,10 @@ type Role = 'offer' | 'need' | 'both';
               ? 'border-primary bg-primary/5'
               : 'border-outline-variant/30 bg-surface-container-lowest hover:bg-surface-container-low'">
 
-            <!-- Badge Más popular -->
             <div class="absolute -top-3 right-4 px-2.5 py-0.5 bg-primary text-on-primary text-xs font-semibold rounded-full shadow-sm">
               Más popular
             </div>
 
-            <!-- Ícono -->
             <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all"
                  [class]="selectedRole() === 'both'
                    ? 'bg-primary text-on-primary'
@@ -137,7 +129,6 @@ type Role = 'offer' | 'need' | 'both';
               <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sync</span>
             </div>
 
-            <!-- Texto -->
             <div class="flex flex-col gap-1 flex-1 pr-6">
               <span class="font-headline font-semibold text-base text-on-surface">Quiero ambas cosas</span>
               <span class="font-body text-sm text-on-surface-variant leading-snug">
@@ -145,7 +136,6 @@ type Role = 'offer' | 'need' | 'both';
               </span>
             </div>
 
-            <!-- Radio indicator -->
             <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0"
                  [class]="selectedRole() === 'both'
                    ? 'border-primary bg-primary'
@@ -170,7 +160,7 @@ type Role = 'offer' | 'need' | 'both';
   `
 })
 export class RoleComponent {
-  selectedRole = signal<Role>('both'); // "Ambas" seleccionada por defecto
+  selectedRole = signal<Role>('both');
 
   seleccionar(role: Role) {
     this.selectedRole.set(role);

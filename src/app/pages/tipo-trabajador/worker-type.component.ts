@@ -39,7 +39,6 @@ type WorkerType = 'profesional' | 'estudiante' | 'ambos';
               ? 'ring-2 ring-primary bg-primary/5 border-transparent'
               : 'bg-surface-container-lowest border border-outline-variant/30 hover:bg-surface-container-low'">
 
-            <!-- Ícono -->
             <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all"
                  [class]="seleccionado() === 'profesional'
                    ? 'bg-primary text-on-primary'
@@ -47,7 +46,6 @@ type WorkerType = 'profesional' | 'estudiante' | 'ambos';
               <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">build</span>
             </div>
 
-            <!-- Texto -->
             <div class="flex-1">
               <h3 class="font-headline font-bold text-lg text-on-surface mb-1">Profesional de oficio</h3>
               <p class="font-body text-sm text-on-surface-variant leading-snug">
@@ -55,7 +53,6 @@ type WorkerType = 'profesional' | 'estudiante' | 'ambos';
               </p>
             </div>
 
-            <!-- Check indicator -->
             <div class="shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-all"
                  [class]="seleccionado() === 'profesional'
                    ? 'border-primary bg-primary'
@@ -160,7 +157,6 @@ export class WorkerTypeComponent {
   seleccionado = signal<WorkerType | null>(null);
 
   seleccionar(tipo: WorkerType) {
-    // Toca el mismo → deselecciona
     this.seleccionado.set(
       this.seleccionado() === tipo ? null : tipo
     );
